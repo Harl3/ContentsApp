@@ -1,0 +1,41 @@
+<h1>Lista contenuti</h1>
+
+<div *ngIf="unauthorized" class="alert alert-danger" role="alert">
+  Non autorizzato
+</div>
+
+<table datatable [dtOptions]="dtOptions" class="table" *ngIf="contents">
+  <thead>
+    <tr class="bg-light">
+      <th>Titolo</th>
+      <th class="d-none d-sm-table-cell">Nome file</th>
+      <th class="d-none d-sm-table-cell">Durata</th>
+      <th class="d-none d-sm-table-cell">Data e ora creazione</th>
+      <th class="d-none d-sm-table-cell">Data e ora aggiornamento</th>
+      <th class="d-none d-sm-table-cell">Data e ora pubblicazione</th>
+      <th>Tipo contenuto</th>
+      <th class="d-none d-sm-table-cell">Codifica</th>
+      <th class="d-none d-sm-table-cell">Embed permesso</th>
+      <th class="d-none d-sm-table-cell">Poster inserito</th>
+      <th class="d-none d-sm-table-cell">Eliminato</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let content of contents.data.contents">
+      <td class="text-truncate" style="max-width:150px;">{{ content.title }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.onDemandFileName }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.onDemandDuration }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.creationDate | date :'dd/MM/yyyy HH:mm' }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.updateDate | date :'dd/MM/yyyy HH:mm' }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.publishDateUTC | date :'dd/MM/yyyy HH:mm' }}</td>
+      <td>
+        <p *ngIf="content.contentType == 10">Video on demand</p>
+        <p *ngIf="content.contentType == 11">Audio on demand</p>
+      </td>
+      <td class="d-none d-sm-table-cell">{{ content.onDemandEncodingDescription }}</td>
+      <td class="d-none d-sm-table-cell">{{ !content.protectedEmbed ? 'Si' : 'No' }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.hasPoster ? 'Si' : 'No' }}</td>
+      <td class="d-none d-sm-table-cell">{{ content.trash ? 'Si' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>
