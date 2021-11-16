@@ -11,12 +11,18 @@ export class AppComponent {
   dtOptions: DataTables.Settings = {};
   lSettings: DataTables.LanguageSettings = { searchPlaceholder: "Cerca per titolo", search: "" };
   unauthorized: boolean = false;
+  hasError: boolean = false;
 
   constructor(http: HttpClient) {
     http.get<Contents>('/contents', {
       headers: { 'X-Api-Key': 'C5BFF7F0-B4DF-475E-A331-F737424F013C' }
     }).subscribe(result => {
-      this.contents = result;
+      if (result.isSuccessStatusCode) {
+        this.contents = result;
+      }
+      else {
+        this.hasError = true;
+      }
     }, error => {
       console.error(error);
       this.unauthorized = error.status === 401;

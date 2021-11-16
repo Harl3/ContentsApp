@@ -3,6 +3,9 @@
 <div *ngIf="unauthorized" class="alert alert-danger" role="alert">
   Non autorizzato
 </div>
+<div *ngIf="hasError" class="alert alert-danger" role="alert">
+  Errore recupero dati
+</div>
 
 <table datatable [dtOptions]="dtOptions" class="table" *ngIf="contents">
   <thead>
