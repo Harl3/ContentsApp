@@ -18,12 +18,19 @@
 //        }
 
 //        [HttpGet]
-//        public Contents Get()
+//        public IActionResult Get()
 //        {
-//            string fileName = "Data/library.json";
-//            string jsonString = System.IO.File.ReadAllText(fileName);
+//            try
+//            {
+//                string fileName = "Data/library.json";
+//                string jsonString = System.IO.File.ReadAllText(fileName);
 
-//            return JsonSerializer.Deserialize<Contents>(jsonString);
+//                return Ok(JsonSerializer.Deserialize<Contents>(jsonString));
+//            }
+//            catch (Exception ex)
+//            {
+//                return Problem(ex.Message, string.Empty, 500, "Internal server error", "https://httpstatuses.com/500");
+//            }
 //        }
 //    }
 //}

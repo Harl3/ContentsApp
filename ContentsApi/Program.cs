@@ -44,6 +44,16 @@ app.UseAuthorization();
 //app.MapControllers();
 
 //Con minimal api
-app.MapGet("/Contents", [Authorize] () => JsonSerializer.Deserialize<Contents>(System.IO.File.ReadAllText("Data/library.json")));
+app.MapGet("/Contents", [Authorize] () =>
+{
+    try
+    {
+        return Results.Ok(JsonSerializer.Deserialize<Contents>(System.IO.File.ReadAllText("Data/library.json")));
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.Message, string.Empty, 500, "Internal server error", "https://httpstatuses.com/500");
+    }
+});
 
 app.Run();
