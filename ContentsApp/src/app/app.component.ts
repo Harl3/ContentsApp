@@ -76,14 +76,6 @@ export class AppComponent {
   }
 
   title = 'ContentsApp';
-
-  applyFilter(event: any) {
-    console.log(event.target.value);
-    if (this.contents) {
-      let filtered = this.contents.data.contents.filter(x => x.title.toLowerCase().includes(event.target.value));
-      console.log(filtered);
-    }
-  }
 }
 
 interface Content {
